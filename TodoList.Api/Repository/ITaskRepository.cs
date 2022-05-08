@@ -1,9 +1,10 @@
-﻿using Task = TodoList.Api.Entities.Task;
+﻿using TodoList.Models;
+using Task = TodoList.Api.Entities.Task;
 namespace TodoList.Api.Repository
 {
     public interface ITaskRepository
     {
-        Task<IEnumerable<Task>> GetTaskList();
+        Task<IEnumerable<TaskDto>> GetTaskList();
         Task<Task>Create(Task task);
         Task<Task> Update(Task task);
         Task<Task> Delete(Task task);

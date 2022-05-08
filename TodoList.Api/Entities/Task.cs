@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using TodoList.Api.Enumerable;
+using TodoList.Models.Enumerable;
 
 namespace TodoList.Api.Entities
 {
@@ -16,7 +16,7 @@ namespace TodoList.Api.Entities
         public System.Nullable<Guid> AssigneeId { get; set; }
 
         [ForeignKey("AssigneeId")]
-        public User Assignee { get; set; }
+        public User? Assignee { get; set; }
 
         public DateTime CreatedDate { get; set; }
 

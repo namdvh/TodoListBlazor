@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using TodoList.Api.Entities;
-using TodoList.Api.Enumerable;
+using TodoList.Models.Enumerable;
 
 namespace TodoList.Api.Data
 {

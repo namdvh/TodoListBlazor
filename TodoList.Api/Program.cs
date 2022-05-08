@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
 using TodoList.Api.Data;
+using TodoList.Api.Extensions;
+using TodoList.Api.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,8 +16,15 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddTransient<ITaskRepository,TaskRepository>();    
 
 var app = builder.Build();
+app.MigrateDbContext<TodoListDbContext>((context, services) =>
+{
+    var logger = services?.GetService<ILogger<TodoListDbContextSeed>>();
+    new TodoListDbContextSeed().SeedAsync(context, logger).Wait();
+});
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

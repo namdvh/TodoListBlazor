@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using TodoList.Api.Repository;
 using Microsoft.EntityFrameworkCore;
 using TodoList.Models;
+using AutoMapper;
+using TodoList.Api.Data;
 
 namespace TodoList.Api.Controllers
 {
@@ -11,10 +13,14 @@ namespace TodoList.Api.Controllers
     public class TaskController : ControllerBase
     {
         private readonly ITaskRepository _taskRepository;
+        private readonly IMapper _taskRepositorymap;
+        private readonly TodoListDbContext _context;
 
-        public TaskController(ITaskRepository taskRepository)
+        public TaskController(ITaskRepository taskRepository,IMapper mapper, TodoListDbContext context)
         {
             _taskRepository = taskRepository;
+            _taskRepositorymap= mapper;
+            _context = context;
         }
         [HttpGet]
         public async Task<IActionResult> GetAll()
@@ -30,15 +36,21 @@ namespace TodoList.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var task = await _taskRepository.Create(new Entities.Task()
+            //var task = await _taskRepository.Create(new Entities.Task()
+            //{
+            //   Name=request.Name,
+            //   Priority=request.Priority,
+            //   Status=Models.Enumerable.Status.Open,
+            //   CreatedDate=DateTime.Now,
+            //   Id=request.Id,
+            //});
+            else
             {
-               Name=request.Name,
-               Priority=request.Priority,
-               Status=Models.Enumerable.Status.Open,
-               CreatedDate=DateTime.Now,
-               Id=request.Id,
-            });
-            return CreatedAtAction(nameof(GetById), new { id = task.Id }, task);
+                Entities.Task task= _taskRepositorymap.Map<Entities.Task>(request);
+                await _context.Tasks.AddAsync(task);
+                await _context.SaveChangesAsync();
+            }
+            return Ok();
         }
         //api/tasks/xxxx
         [HttpGet]

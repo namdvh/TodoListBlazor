@@ -60,7 +60,7 @@ namespace TodoList.Api.Controllers
         }
         [HttpPut]
         [Route("{id}")]
-        public async Task<IActionResult>  Update(Guid id,Entities.Task task)
+        public async Task<IActionResult>Update(Guid id,Entities.Task task)
         {
             if (!ModelState.IsValid)
             {

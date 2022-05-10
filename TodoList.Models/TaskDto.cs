@@ -14,7 +14,7 @@ namespace TodoList.Models
         public string Name { get; set; }
 
         public Priority Priority { get; set; }
-        public System.Nullable<Guid> AssigneeId { get; set; }
+        public Guid? AssigneeId { get; set; }
         public string AssigneeName { get; set; }
 
         public DateTime CreatedDate { get; set; }

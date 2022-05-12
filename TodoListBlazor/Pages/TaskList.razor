@@ -1,7 +1,7 @@
 ﻿@page "/TaskList"
 @using TodoList.Models.Enumerable;
 <h3>Todolist </h3>
-@if (Tasks == null)
+@if (Tasks == null || Assignees==null)
 {
     <TodoListBlazor.Component.LoadingIndicator></TodoListBlazor.Component.LoadingIndicator>
 }
@@ -9,7 +9,8 @@ else
 {
     <div class="row">
         <EditForm Model="@TaskListSearch">
-            <div class="col">
+           <div class="row">
+                <div class="col">
                 <label>
                     Name
                 </label>
@@ -37,9 +38,10 @@ else
                     }
                 </InputSelect>
             </div>
-             <div class="col">
-               <button type="submit" class="btn btn-success"></button>
+             <div class="col pt-4">
+               <button type="submit" class="btn btn-success">Search</button>
             </div>
+           </div>
         </EditForm>
     </div>
     <div class="row mt-4">

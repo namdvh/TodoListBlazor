@@ -9,12 +9,14 @@ namespace TodoListBlazor.Pages
     public partial class TaskList
     {
         [Inject] private ITaskApiClient TaskApiClient { get; set; }
+        [Inject] private IUserApiClient userApiClient { get; set; }
         private List<AssigneeDto> Assignees;
         private List<TaskDto> Tasks { get; set; }
         private TaskListSearch TaskListSearch = new TaskListSearch();
         protected override async Task OnInitializedAsync()
         {
             Tasks = await TaskApiClient.GetTaskList();
+            Assignees = await userApiClient.GetAssignee();
         }
     }
     public class TaskListSearch

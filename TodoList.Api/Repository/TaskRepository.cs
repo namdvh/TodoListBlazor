@@ -42,7 +42,6 @@ namespace TodoList.Api.Repository
             Priority=x.Priority,
             AssigneeName=x.Assignee!=null ? x.Assignee.FirstName+' '+x.Assignee.LastName:"N/A",
             Id=x.Id}).ToListAsync();
-
         }
 
         public async Task<Entities.Task> Update(Entities.Task task)

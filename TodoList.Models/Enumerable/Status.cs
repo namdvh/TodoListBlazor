@@ -1,8 +1,8 @@
-﻿namespace TodoList.Api.Enumerable
+﻿namespace TodoList.Models.Enumerable
 {
     public enum Status
     {
-        New,
+        Open,
         Inprogress,
         Resolved,
         Done,

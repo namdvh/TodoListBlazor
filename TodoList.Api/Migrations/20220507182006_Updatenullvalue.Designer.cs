@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TodoList.Api.Data;
 
@@ -11,9 +12,10 @@ using TodoList.Api.Data;
 namespace TodoList.Api.Migrations
 {
     [DbContext(typeof(TodoListDbContext))]
-    partial class TodoListDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220507182006_Updatenullvalue")]
+    partial class Updatenullvalue
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -165,6 +167,7 @@ namespace TodoList.Api.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("AssigneeId")
+                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
@@ -319,7 +322,9 @@ namespace TodoList.Api.Migrations
                 {
                     b.HasOne("TodoList.Api.Entities.User", "Assignee")
                         .WithMany()
-                        .HasForeignKey("AssigneeId");
+                        .HasForeignKey("AssigneeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Assignee");
                 });
